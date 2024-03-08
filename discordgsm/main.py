@@ -262,6 +262,17 @@ def query_server_modal(game: GamedigGame, locale: Locale):
     elif game['id'] == 'teamspeak3':
         query_extra['voice_port'] = TextInput(label='Voice Port', placeholder='Voice port', default=9987)
         modal.add_item(query_extra['voice_port'])
+    elif game['id'] == "http":
+        query_extra['website_name'] = TextInput(label="Display Name", placeholder="My Website")
+        query_extra['status_code'] = TextInput(label="Response Status Code", placeholder=200, default=200)
+        query_extra['response_content'] = TextInput(label="Response Content has... (regex)", placeholder=".*", default=".*")
+
+        modal.add_item(query_extra['website_name'])
+        modal.add_item(query_extra['status_code'])
+        modal.add_item(query_extra['response_content'])
+
+        modal.remove_item(query_param['port'])
+        query_param['port']._value = '0'
 
     return modal, query_param, query_extra
 
@@ -309,6 +320,9 @@ def query_server_modal_handler(interaction: Interaction, game: GamedigGame, is_a
         # Create new server object
         server = Server.new(interaction.guild_id, interaction.channel_id, game_id, address, query_port, query_extra, result)
         style = Styles.get(server, 'Medium')
+        if game_id == 'http':
+            style = Styles.get(server, 'Website')
+
         server.style_id = style.id
         server.style_data = await style.default_style_data(None)
 
@@ -1000,7 +1014,7 @@ async def query_distinct_server(servers: list[Server]):
 
 
 async def get_hash_code(server: Server):
-    if server.game_id in ['discord', 'scpsl']:
+    if server.game_id in ['discord', 'scpsl', 'http']:
         host = server.address
     else:
         try:
