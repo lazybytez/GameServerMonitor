@@ -89,6 +89,9 @@ class Style(ABC):
         elif gamedig.default_port(self.server.game_id) == 27015 and gamedig.game_port(self.server.result) == int(self.server.query_port):
             style_data['description'] = t('embed.description.connect', self.locale).format(url=f'steam://connect/{self.server.address}:{self.server.query_port}')
 
+        if self.server.game_id == 'http':
+            return style_data
+
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.get(f'https://ipinfo.io/{socket.gethostbyname(self.server.address)}/country') as response:
@@ -127,6 +130,9 @@ class Style(ABC):
 
         if self.server.game_id == 'discord':
             name = t('modal.text_input.guild_id.label', self.locale)
+            embed.add_field(name=name, value=f'`{self.server.address}`', inline=True)
+        elif self.server.game_id == 'http':
+            name = t("modal.text_input.http.label", self.locale)
             embed.add_field(name=name, value=f'`{self.server.address}`', inline=True)
         elif game_port is None or game_port == int(self.server.query_port):
             name = t('embed.field.address:port.name', self.locale)

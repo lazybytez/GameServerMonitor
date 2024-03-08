@@ -58,6 +58,7 @@
     "modal.text_input.guild_id.label": "Gilden-ID",
     "modal.text_input.webhook_url.label": "Webhook URL",
     "modal.text_input.webhook_content.label": "Webhook-Inhalt",
+    "modal.text_input.http.label": "URL",
     "embed.alert.description.test": "🧪 Dies ist ein Testalarm!",
     "embed.alert.description.online": "✅ Server ist wieder online!",
     "embed.alert.description.offline": "🚨 Server scheint ausgefallen zu sein!",
@@ -97,5 +98,7 @@
     "style.large.display_name": "Groß",
     "style.large.description": "Ein großformatiger Stil, der Serverinformationen und eine Spielerliste anzeigt.",
     "style.extra_large.display_name": "Extra Groß",
-    "style.extra_large.description": "Ein extra großformatiger Stil, der mit Bot-Liste angezeigt wird."
+    "style.extra_large.description": "Ein extra großformatiger Stil, der mit Bot-Liste angezeigt wird.",
+    "style.website.display_name": "Webseite",
+    "style.website.description": "Ein spezieller Style der nur mit dem Typ \"http\" genutzt werden sollte."
 }
