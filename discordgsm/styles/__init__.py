@@ -5,6 +5,7 @@ from .extra_small import ExtraSmall
 from .large import Large
 from .medium import Medium
 from .small import Small
+from .website import Website
 from .style import Style
 
 if __name__ == '__main__':
@@ -12,7 +13,7 @@ if __name__ == '__main__':
 else:
     from discordgsm.server import Server
 
-styles: List[Type[Style]] = [ExtraSmall, Small, Medium, Large, ExtraLarge]
+styles: List[Type[Style]] = [ExtraSmall, Small, Medium, Large, ExtraLarge, Website]
 _styles = {style.__name__: style for style in styles}
 
 

@@ -36,5 +36,6 @@ from .unreal2 import Unreal2
 from .ut3 import UT3
 from .vcmp import Vcmp
 from .won import WON
+from .http import HTTP
 
 protocols = {str(protocol.name): protocol for protocol in Protocol.__subclasses__()}
