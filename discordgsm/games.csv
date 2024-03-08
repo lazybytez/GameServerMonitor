@@ -312,6 +312,7 @@ vietcong2,Vietcong 2,gamespy2,port=5001;port_query=19967
 vrising,V Rising,source,port=9876;port_query=9877
 
 warsow,Warsow,quake3,port=44400
+http,Website,http,
 wheeloftime,Wheel of Time,gamespy1,port=7777;port_query_offset=1
 wolfenstein2009,Wolfenstein 2009,doom3,port=27666
 wolfensteinet,Wolfenstein: Enemy Territory,quake3,port_query=27960

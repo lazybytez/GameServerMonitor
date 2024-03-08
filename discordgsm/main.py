@@ -215,7 +215,7 @@ async def send_alert(server: Server, alert: Alert):
         content = None if not content else content
         username = 'Game Server Monitor Alert'
         avatar_url = 'https://avatars.githubusercontent.com/u/61296017'
- 
+
         async with aiohttp.ClientSession() as session:
             webhook = Webhook.from_url(webhook_url, session=session)
             await webhook.send(content, username=username, avatar_url=avatar_url, embed=alert_embed(server, alert))
@@ -276,6 +276,17 @@ def query_server_modal(game: GamedigGame, locale: Locale):
         query_extra['password'] = TextInput(label='Password',  placeholder='Query Password', default="User")
         modal.add_item(query_extra['username'])
         modal.add_item(query_extra['password'])
+    elif game['id'] == "http":
+        query_extra['website_name'] = TextInput(label="Display Name", placeholder="My Website")
+        query_extra['status_code'] = TextInput(label="Response Status Code", placeholder=200, default=200)
+        query_extra['response_content'] = TextInput(label="Response Content has... (regex)", placeholder=".*", default=".*")
+
+        modal.add_item(query_extra['website_name'])
+        modal.add_item(query_extra['status_code'])
+        modal.add_item(query_extra['response_content'])
+
+        modal.remove_item(query_param['port'])
+        query_param['port']._value = '0'
 
     return modal, query_param, query_extra
 
@@ -322,6 +333,9 @@ def query_server_modal_handler(interaction: Interaction, game: GamedigGame, is_a
         # Create new server object
         server = Server.new(interaction.guild_id, interaction.channel_id, game_id, address, query_port, query_extra, result)
         style = Styles.get(server, 'Medium')
+        if game_id == 'http':
+            style = Styles.get(server, 'Website')
+
         server.style_id = style.id
         server.style_data = await style.default_style_data(None)
 
@@ -1043,7 +1057,7 @@ async def query_distinct_server(servers: list[Server]):
 
 
 async def get_hash_code(server: Server):
-    if server.game_id in ['discord', 'scpsl']:
+    if server.game_id in ['discord', 'scpsl', 'http']:
         host = server.address
     else:
         try:
