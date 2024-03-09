@@ -24,11 +24,13 @@ class HTTP(Protocol):
         )
 
         start = time.time()
+        Logger.info(f"Querying {url} to check it its is online...")
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
                 status = response.status
                 content = await response.text()
                 end = time.time()
+                Logger.info(f"Finished check if {url} is online!")
 
         if not status == status_code:
             raise Exception(f"Received unexpected status code {status}")
